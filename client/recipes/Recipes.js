@@ -1,0 +1,22 @@
+// Meteor.subscribe('recipes'); // instead, onCreated
+
+// console.log(Meteor.settings.public.ga.account)
+
+Template.Recipes.onCreated(function() { // #13 mentioned
+	var self = this;
+	self.autorun(function() {
+		self.subscribe('recipes');
+	});
+});
+
+Template.Recipes.helpers({
+	recipes: ()=> {
+		return Recipes.find({});
+	}
+});
+
+Template.Recipes.events({
+	'click .new-recipe': ()=> {
+		Session.set('newRecipe', true);
+	}	
+})
